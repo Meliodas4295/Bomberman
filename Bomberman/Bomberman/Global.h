@@ -13,17 +13,8 @@ constexpr unsigned char FONT_HEIGHT = 16;
 
 constexpr unsigned char ROW = 16;
 constexpr unsigned char COL = 13;
-constexpr unsigned char MAP_HEIGHT = 13;
-constexpr unsigned char MAP_WIDTH = 15;
-constexpr unsigned char BOMBERMAN_ANIMATION_FRAMES = 6;
-constexpr unsigned char BOMBERMAN_ANIMATION_SPEED = 4;
-constexpr unsigned char BOMBERMAN_DEATH_FRAMES = 12;
-constexpr unsigned char BOMBERMAN_SPEED = 2;
-constexpr unsigned char SCREEN_RESIZE = 2;
-
-//This is in frames. So don't be surprised if the numbers are too big.
-constexpr unsigned short BOMB_DURATION = 1024;
-constexpr unsigned short FRAME_DURATION = 16667;
+constexpr unsigned char MAP_HEIGHT = 15;
+constexpr unsigned char MAP_WIDTH = 27;
 
 typedef pair<int, int> Pair;
 
@@ -40,22 +31,47 @@ struct cell {
 };
 
 
+
 //I used enums! I rarely use them, so enjoy this historical moment.
 enum Cell
 {
 	Empty,
 	Rock,
-	Box,
+	BoxDestructible,
 	Wall,
 	Way,
 	Way3D,
 };
 
 enum Direction {
-	Up,
 	Down,
+	Up,
 	Right,
-	Left
+	Left, 
+	Middle,
+	Death
+};
+
+enum TypeItem {
+	BombPlus,
+	ExplosionPlus,
+	SpeedPlus
+};
+
+enum TypeEnemy {
+	Ia,
+	Heli,
+};
+
+enum Select {
+	Other,
+	Level,
+	History,
+	Play,
+	Exit,
+	Option,
+	GameOver,
+	Win
 };
 
 struct Position
@@ -70,10 +86,6 @@ struct Position
 	}
 };
 
-struct Frame {
-	sf::IntRect rect;
-	double duration; // in seconds
-};
 
 struct Mapping {
 	std::vector<sf::VertexArray> quads;

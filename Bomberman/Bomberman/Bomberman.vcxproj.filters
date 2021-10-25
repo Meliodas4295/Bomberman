@@ -36,6 +36,18 @@
     <ClCompile Include="Explosion.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Bar.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Map.h">
@@ -59,7 +71,19 @@
     <ClInclude Include="Essai.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
     <ClInclude Include="Explosion.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Bar.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -77,6 +101,21 @@
       <Filter>Fichiers de ressources</Filter>
     </Image>
     <Image Include="stage.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="exp.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="bomberman-sprite-sheet.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="items.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="timer.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="barMenu.png">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

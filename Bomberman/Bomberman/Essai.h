@@ -621,3 +621,624 @@ sf::Sprite BombermanPlayer::animationRight(sf::Clock& clock, sf::IntRect& rect, 
                 clock3.restart();
                 compteur =  compteur + 1;
             }*/
+
+            /*m_midleExplosion[2].setPosition(p.x, p.y);
+                window.draw(m_midleExplosion[2]);
+                m_midleExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 49, 16, 16));
+                animation(clock, m_midleExplosion[2], m_midleExplosion);
+                if (collisionRock(map_sketch, p, Down, 0) && collisionBox(map_sketch, p, Down, 0)) {
+                    m_firstDownExplosion[2].setPosition(p.x, p.y + 16);
+                    window.draw(m_firstDownExplosion[2]);
+                    m_firstDownExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 4 * 16.5, 16, 16));
+                    animation(clock, m_firstDownExplosion[2], m_firstDownExplosion);
+                    if (collisionRock(map_sketch, p, Down, 1) && collisionBox(map_sketch, p, Down, 1)) {
+                        m_secondDownExplosion[2].setPosition(p.x, p.y + 30);
+                        window.draw(m_secondDownExplosion[2]);
+                        m_secondDownExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 5 * 16.5, 16, 16));
+                        animation(clock, m_secondDownExplosion[2], m_secondDownExplosion);
+                    }
+                }
+                if (collisionRock(map_sketch, p, Left, 0) && collisionBox(map_sketch, p, Left, 0)) {
+                    m_firstLeftExplosion[2].setPosition(p.x - 16, p.y);
+                    window.draw(m_firstLeftExplosion[2]);
+                    m_firstLeftExplosion[2].setTextureRect(sf::IntRect((1 + 5 * 2) * 17, 3 * 16.5, 16, 16));
+                    animation(clock, m_firstLeftExplosion[2], m_firstLeftExplosion);
+                    if (collisionRock(map_sketch, p, Left, 1) && collisionBox(map_sketch, p, Left, 1)) {
+                        m_secondLeftExplosion[2].setPosition(p.x - 32, p.y);
+                        window.draw(m_secondLeftExplosion[2]);
+                        m_secondLeftExplosion[2].setTextureRect(sf::IntRect((5 * 2) * 17, 3 * 16.5, 16, 16));
+                        animation(clock, m_secondLeftExplosion[2], m_secondLeftExplosion);
+                    }
+                }
+                if (collisionRock(map_sketch, p, Right, 0) && collisionBox(map_sketch, p, Right, 0)) {
+                    m_firstRightExplosion[2].setPosition(p.x + 16, p.y);
+                    window.draw(m_firstRightExplosion[2]);
+                    m_firstRightExplosion[2].setTextureRect(sf::IntRect((3 + 5 * 2) * 17, 3 * 16.5, 16, 16));
+                    animation(clock, m_firstRightExplosion[2], m_firstRightExplosion);
+                    if (collisionRock(map_sketch, p, Right, 1) && collisionBox(map_sketch, p, Right, 1)) {
+                        m_secondRightExplosion[2].setPosition(p.x + 32, p.y);
+                        window.draw(m_secondRightExplosion[2]);
+                        m_secondRightExplosion[2].setTextureRect(sf::IntRect((4 + 5 * 2) * 17, 3 * 16.5, 16, 16));
+                        animation(clock, m_secondRightExplosion[2], m_secondRightExplosion);
+                    }
+                }
+                if (collisionRock(map_sketch, p, Up, 0) && collisionBox(map_sketch, p, Up, 0)) {
+                    m_firstUpExplosion[2].setPosition(p.x, p.y - 16);
+                    window.draw(m_firstUpExplosion[2]);
+                    m_firstUpExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 32, 16, 16));
+                    animation(clock, m_firstUpExplosion[2], m_firstUpExplosion);
+                    if (collisionRock(map_sketch, p, Up, 1) && collisionBox(map_sketch, p, Up, 1)) {
+                        m_secondUpExplosion[2].setPosition(p.x, p.y - 30);
+                        window.draw(m_secondUpExplosion[2]);
+                        m_secondUpExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 17, 16, 14));
+                        animation(clock, m_secondUpExplosion[2], m_secondUpExplosion);
+                    }
+                }*/
+
+
+                //bool Explosion::animationDestructionBox(sf::Clock& clock)
+                //{
+                //    if (clock.getElapsedTime().asSeconds() > 0.5f) {
+                //
+                //        if (box.left == 22 * 16.4) {
+                //            box.left = 17 * 16.4;
+                //        }
+                //        else
+                //            box.left += 16.4;
+                //
+                //        m_destroyBox.setTextureRect(box);
+                //        clock.restart();
+                //    }
+                //    else
+                //        return false;
+                //}
+
+                /*void Explosion::destroyBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::Clock& clock, sf::RenderWindow& window)
+                {
+                    if (map_sketch[floor((p.y + 32) / 16)][floor(p.x / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x, p.y + 32);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor((p.y + 32) / 16)][floor(p.x / 16)] = '.';
+                        }
+                    }
+
+                    if (map_sketch[floor(p.y / 16)][floor((p.x - 32) / 16)] == '=' ) {
+                        m_destroyBox.setPosition(p.x - 32, p.y);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor(p.y / 16)][floor((p.x - 32) / 16)] = '.';
+                        }
+                    }
+
+                    if (map_sketch[floor(p.y / 16)][floor((p.x + 32) / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x + 32, p.y);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor(p.y / 16)][floor((p.x + 32) / 16)] = '.';
+                        }
+                    }
+
+                    if (map_sketch[floor((p.y - 32) / 16)][floor(p.x / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x, p.y - 32);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor((p.y - 32) / 16)][floor(p.x / 16)] = '.';
+                        }
+                    }
+
+
+                    if (map_sketch[floor((p.y + 16) / 16)][floor(p.x/16)] == '=') {
+                        m_destroyBox.setPosition(p.x, p.y+16);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor((p.y + 16) / 16)][floor(p.x / 16)] = '.';
+                        }
+                    }
+                    if (map_sketch[floor(p.y / 16)][floor((p.x-16) / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x - 16, p.y);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor(p.y / 16)][floor((p.x - 16) / 16)] = '.';
+                        }
+                    }
+                    if (map_sketch[floor(p.y / 16)][floor((p.x + 16) / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x + 16, p.y );
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor(p.y / 16)][floor((p.x + 16) / 16)] = '.';
+                        }
+                    }
+                    if (map_sketch[floor((p.y - 16) / 16)][floor(p.x / 16)] == '=') {
+                        m_destroyBox.setPosition(p.x, p.y - 16);
+                        window.draw(m_destroyBox);
+                        if (this->animationDestructionBox(clock)) {
+                            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
+                            map_sketch[floor((p.y - 16) / 16)][floor(p.x / 16)] = '.';
+                        }
+                    }
+                }*/
+
+
+                //sf::Sprite Explosion::getMsprite() const
+                //{
+                //    return m_sprite;
+                //}
+                //
+                //void Explosion::setMsprite(sf::Sprite msprite)
+                //{
+                //    m_sprite = msprite;
+                //}
+
+                //sf::Sprite Explosion::getMdestroyBox() const
+                //{
+                //    return m_destroyBox;
+                //}
+                //
+                //void Explosion::setMdestroyBox(sf::Sprite mdestroyBox)
+                //{
+                //    m_destroyBox = mdestroyBox;
+                //}
+
+                //vector<sf::Sprite> Explosion::getMmidleExplosion() const
+                //{
+                //    return m_midleExplosion;
+                //}
+                //
+                //void Explosion::setMmidleExplosion(vector<sf::Sprite> mmidleExplosion)
+                //{
+                //    m_midleExplosion = mmidleExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMfirstUpExplosion() const
+                //{
+                //    return m_firstUpExplosion;
+                //}
+                //
+                //void Explosion::setMfirstUpExplosion(vector<sf::Sprite> mfirstUpExplosion)
+                //{
+                //    m_firstUpExplosion = mfirstUpExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMsecondUpExplosion() const
+                //{
+                //    return m_secondUpExplosion;
+                //}
+                //
+                //void Explosion::setMsecondUpExplosion(vector<sf::Sprite> msecondUpExplosion)
+                //{
+                //    m_secondUpExplosion = msecondUpExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMfirstDownExplosion() const
+                //{
+                //    return m_firstDownExplosion;
+                //}
+                //
+                //void Explosion::setMfirstDownExplosion(vector<sf::Sprite> mfirstDownExplosion)
+                //{
+                //    m_firstDownExplosion = mfirstDownExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMsecondDownExplosion() const
+                //{
+                //    return m_secondDownExplosion;
+                //}
+                //
+                //void Explosion::setMsecondDownExplosion(vector<sf::Sprite> msecondDownExplosion)
+                //{
+                //    m_secondDownExplosion = msecondDownExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMfirstRightExplosion() const
+                //{
+                //    return m_firstRightExplosion;
+                //}
+                //
+                //void Explosion::setMfirstRightExplosion(vector<sf::Sprite> mfirstRightExplosion)
+                //{
+                //    m_firstRightExplosion = mfirstRightExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMsecondRightExplosion() const
+                //{
+                //    return m_secondRightExplosion;
+                //}
+                //
+                //void Explosion::setMsecondRightExplosion(vector<sf::Sprite> msecondRightExplosion)
+                //{
+                //    m_secondRightExplosion = msecondRightExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMfirstLeftExplosion() const
+                //{
+                //    return m_firstLeftExplosion;
+                //}
+                //
+                //void Explosion::setMfirstLeftExplosion(vector<sf::Sprite> mfirstLeftExplosion)
+                //{
+                //    m_firstLeftExplosion = mfirstLeftExplosion;
+                //}
+                //
+                //vector<sf::Sprite> Explosion::getMsecondLeftExplosion() const
+                //{
+                //    return m_secondLeftExplosion;
+                //}
+                //
+                //void Explosion::setMsecondLeftExplosion(vector<sf::Sprite> msecondLeftExplosion)
+                //{
+                //    m_secondLeftExplosion = msecondLeftExplosion;
+                //}
+
+/*for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((2 + 5 * i)*17, 49, 16, 16));
+            m_midleExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((1 + 5 * i) * 17, 3 * 16.5 , 16, 16));
+        m_firstLeftExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((5 * i) * 17, 3 * 16.5, 16, 16));
+        m_secondLeftExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((3 + 5 * i) * 17, 3 * 16.5, 16, 16));
+        m_firstRightExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((4 + 5 * i) * 17 , 3 * 16.5, 16, 16));
+        m_secondRightExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 32, 16, 16));
+        m_firstUpExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17 , 17, 16, 14));
+        m_secondUpExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 4 * 16.5, 16, 16));
+        m_firstDownExplosion.push_back(m_sprite);
+    }
+    for (int i = 0; i < 3; i++) {
+        m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 5 * 16.5, 16, 16));
+        m_secondDownExplosion.push_back(m_sprite);
+    }*/
+    /*m_textBox.loadFromFile("stage.png");
+    m_destroyBox.setTexture(m_textBox);
+    box = sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16);
+    m_destroyBox.setTextureRect(box);*/
+
+
+    /*if (clock.getElapsedTime().asSeconds() > 1.0f) {
+
+            if (box.left == 22 * 16.4) {
+                box.left = 17 * 16.4;
+                return true;
+            }
+            else
+                box.left += 16.4;
+
+            m_destroyBox.setTextureRect(box);
+            clock.restart();
+        }
+        else {
+            return false;
+        }*/
+
+
+        /*sf::Sprite getMsprite() const;
+            void setMsprite(sf::Sprite msprite);*/
+
+            /* sf::Sprite getMdestroyBox() const;
+             void setMdestroyBox(sf::Sprite mdestroyBox);*/
+
+
+             /*vector<sf::Sprite> getMmidleExplosion() const;
+             void setMmidleExplosion(vector<sf::Sprite> mmidleExplosion);
+
+             vector<sf::Sprite> getMfirstUpExplosion() const;
+             void setMfirstUpExplosion(vector<sf::Sprite> mfirstUpExplosion);
+
+             vector<sf::Sprite> getMsecondUpExplosion() const;
+             void setMsecondUpExplosion(vector<sf::Sprite> msecondUpExplosion);
+
+             vector<sf::Sprite> getMfirstDownExplosion() const;
+             void setMfirstDownExplosion(vector<sf::Sprite> mfirstDownExplosion);
+
+             vector<sf::Sprite> getMsecondDownExplosion() const;
+             void setMsecondDownExplosion(vector<sf::Sprite> msecondDownExplosion);
+
+             vector<sf::Sprite> getMfirstRightExplosion() const;
+             void setMfirstRightExplosion(vector<sf::Sprite> mfirstRightExplosion);
+
+             vector<sf::Sprite> getMsecondRightExplosion() const;
+             void setMsecondRightExplosion(vector<sf::Sprite> msecondRightExplosion);
+
+             vector<sf::Sprite> getMfirstLeftExplosion() const;
+             void setMfirstLeftExplosion(vector<sf::Sprite> mfirstLeftExplosion);
+
+             vector<sf::Sprite> getMsecondLeftExplosion() const;
+             void setMsecondLeftExplosion(vector<sf::Sprite> msecondLeftExplosion);*/
+
+             //sf::Sprite m_sprite;
+                /* sf::Texture m_textBox;
+                 sf::Sprite m_destroyBox;
+                 sf::IntRect box;*/
+                 /*vector<sf::Sprite> m_midleExplosion;
+                 vector<sf::Sprite> m_firstUpExplosion;
+                 vector<sf::Sprite> m_secondUpExplosion;
+                 vector<sf::Sprite> m_firstDownExplosion;
+                 vector<sf::Sprite> m_secondDownExplosion;
+                 vector<sf::Sprite> m_firstRightExplosion;
+                 vector<sf::Sprite> m_secondRightExplosion;
+                 vector<sf::Sprite> m_firstLeftExplosion;
+                 vector<sf::Sprite> m_secondLeftExplosion;*/
+
+
+
+
+
+                 /*m_rectFirstDown = sf::IntRect(32,0,32,32);
+                     m_firstDownExplosion.setTexture(m_texture);
+                     m_firstDownExplosion.setTextureRect(m_rectFirstDown);
+                     m_firstDownExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_firstDownExplosion);
+
+                     m_rectSecondDown = sf::IntRect(4*32, 0, 32, 32);
+                     m_secondDownExplosion.setTexture(m_texture);
+                     m_secondDownExplosion.setTextureRect(m_rectSecondDown);
+                     m_secondDownExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_secondDownExplosion);
+
+                     m_rectFirstLeft = sf::IntRect(2*32, 0, 32, 32);
+                     m_firstLeftExplosion.setTexture(m_texture);
+                     m_firstLeftExplosion.setTextureRect(m_rectFirstLeft);
+                     m_firstLeftExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_firstLeftExplosion);
+
+                     m_rectSecondLeft = sf::IntRect(6*32, 0, 32, 32);
+                     m_secondLeftExplosion.setTexture(m_texture);
+                     m_secondLeftExplosion.setTextureRect(m_rectSecondLeft);
+                     m_secondLeftExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_secondLeftExplosion);
+
+                     m_rectFirstRight = sf::IntRect(2*32, 0, 32, 32);
+                     m_firstRightExplosion.setTexture(m_texture);
+                     m_firstRightExplosion.setTextureRect(m_rectFirstRight);
+                     m_firstRightExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_firstRightExplosion);
+
+                     m_rectSecondRight = sf::IntRect(5*32, 0, 32, 32);
+                     m_secondRightExplosion.setTexture(m_texture);
+                     m_secondRightExplosion.setTextureRect(m_rectSecondRight);
+                     m_secondRightExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_secondRightExplosion);
+
+                     m_rectFirstUp = sf::IntRect(32, 0, 32, 32);
+                     m_firstUpExplosion.setTexture(m_texture);
+                     m_firstUpExplosion.setTextureRect(m_rectFirstUp);
+                     m_firstUpExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_firstUpExplosion);
+
+                     m_rectSecondUp = sf::IntRect(3*32, 0, 32, 32);
+                     m_secondUpExplosion.setTexture(m_texture);
+                     m_secondUpExplosion.setTextureRect(m_rectSecondUp);
+                     m_secondUpExplosion.setScale(0.5, 0.5);
+                     flames.push_back(m_secondUpExplosion);*/
+
+                     //if (collisionRock(map_sketch, p, Down, 0) && collisionBox(map_sketch, p, Down, 0)) {
+                         //    m_secondDownExplosion.setPosition(p.x, p.y + 16);
+                         //    window.draw(m_secondDownExplosion);
+                         //    animation(m_secondDownExplosion, m_rectSecondDown);
+                         //    /*if (collisionRock(map_sketch, p, Down, 1) && collisionBox(map_sketch, p, Down, 1)) {
+                         //        m_secondDownExplosion.setPosition(p.x, p.y + 30);
+                         //        window.draw(m_secondDownExplosion);
+                         //        animation(m_secondDownExplosion, m_rectSecondDown);
+                         //    }*/
+                         //}
+                         //if (collisionRock(map_sketch, p, Left, 0) && collisionBox(map_sketch, p, Left, 0)) {
+                         //    m_secondLeftExplosion.setPosition(p.x - 16, p.y);
+                         //    window.draw(m_secondLeftExplosion);
+                         //    animation(m_secondLeftExplosion, m_rectSecondLeft);
+                         //    /*if (collisionRock(map_sketch, p, Left, 1) && collisionBox(map_sketch, p, Left, 1)) {
+                         //        m_secondLeftExplosion.setPosition(p.x - 32, p.y);
+                         //        window.draw(m_secondLeftExplosion);
+                         //        animation(m_secondLeftExplosion, m_rectSecondLeft);
+                         //    }*/
+                         //}
+                         //if (collisionRock(map_sketch, p, Right, 0) && collisionBox(map_sketch, p, Right, 0)) {
+                         //    m_secondRightExplosion.setPosition(p.x + 16, p.y);
+                         //    window.draw(m_secondRightExplosion);
+                         //    animation(m_secondRightExplosion, m_rectSecondRight);
+                         //    /*if (collisionRock(map_sketch, p, Right, 1) && collisionBox(map_sketch, p, Right, 1)) {
+                         //        m_secondRightExplosion.setPosition(p.x + 32, p.y);
+                         //        window.draw(m_secondRightExplosion);
+                         //        animation(m_secondRightExplosion, m_rectSecondRight);
+                         //    }*/
+                         //}
+                         //if (collisionRock(map_sketch, p, Up, 0) && collisionBox(map_sketch, p, Up, 0)) {
+                         //    m_secondUpExplosion.setPosition(p.x, p.y - 16);
+                         //    window.draw(m_secondUpExplosion);
+                         //    animation(m_secondUpExplosion, m_rectSecondUp);
+                         //    /*if (collisionRock(map_sketch, p, Up, 1) && collisionBox(map_sketch, p, Up, 1)) {
+                         //        m_secondUpExplosion.setPosition(p.x, p.y - 30);
+                         //        window.draw(m_secondUpExplosion);
+                         //        animation(m_secondUpExplosion, m_rectSecondUp);
+                         //    }*/
+                         //}
+                         //this->updateFlames();
+
+
+//flames.clear();
+   /* m_midleExplosion.setPosition(-12, -12);
+    m_firstDownExplosion.setPosition(-12, -12);
+    m_secondDownExplosion.setPosition(-12, -12);
+    m_firstLeftExplosion.setPosition(-12, -12);
+    m_secondLeftExplosion.setPosition(-12, -12);
+    m_firstRightExplosion.setPosition(-12, -12);
+    m_secondRightExplosion.setPosition(-12, -12);
+    m_firstUpExplosion.setPosition(-12, -12);
+    m_secondUpExplosion.setPosition(-12, -12);*/
+    /*flames.push_back(m_midleExplosion);
+    flames.push_back(m_firstDownExplosion);
+    flames.push_back(m_secondDownExplosion);
+    flames.push_back(m_firstLeftExplosion);
+    flames.push_back(m_secondLeftExplosion);
+    flames.push_back(m_firstRightExplosion);
+    flames.push_back(m_secondRightExplosion);
+    flames.push_back(m_firstUpExplosion);
+    flames.push_back(m_secondUpExplosion);*/
+
+    //void Explosion::updateFlames()
+    //{
+    //    flames.clear();
+    //    flames.push_back(m_midleExplosion);
+    //    flames.push_back(m_firstDownExplosion);
+    //    flames.push_back(m_secondDownExplosion);
+    //    flames.push_back(m_firstLeftExplosion);
+    //    flames.push_back(m_secondLeftExplosion);
+    //    flames.push_back(m_firstRightExplosion);
+    //    flames.push_back(m_secondRightExplosion);
+    //    flames.push_back(m_firstUpExplosion);
+    //    flames.push_back(m_secondUpExplosion);
+    //
+    //}
+
+//void updateFlames();
+
+/*sf::Sprite m_firstUpExplosion;
+    sf::Sprite m_secondUpExplosion;
+    sf::Sprite m_firstDownExplosion;
+    sf::Sprite m_secondDownExplosion;
+    sf::Sprite m_firstRightExplosion;
+    sf::Sprite m_secondRightExplosion;
+    sf::Sprite m_firstLeftExplosion;
+    sf::Sprite m_secondLeftExplosion;
+    sf::IntRect m_rectMidle;
+    sf::IntRect m_rectFirstUp;
+    sf::IntRect m_rectSecondUp;
+    sf::IntRect m_rectFirstDown;
+    sf::IntRect m_rectSecondDown;
+    sf::IntRect m_rectFirstRight;
+    sf::IntRect m_rectSecondRight;
+    sf::IntRect m_rectFirstLeft;
+    sf::IntRect m_rectSecondLeft;
+    vector<sf::Sprite> flames;*/
+
+    /*sf::RectangleShape rect;
+        rect.setSize(sf::Vector2f(12, 8));
+        rect.setFillColor(sf::Color::Black);*/
+
+        /*sf::RectangleShape rectE;
+        rectE.setSize(sf::Vector2f(12, 8));
+        rectE.setFillColor(sf::Color::Black);*/
+
+
+        /*if (IsDestroyBox) {
+                           if (bomberman.getBombes()[i]->destructBox(map_sketch, window)) {
+                               IsDestroyBox = false;
+                               bomberman.getBombes()[i]->setNbreBoxDestroy(0);
+                           }
+                       }*/
+
+                       //map_sketch[floor((bomberman.getBombes()[nbreBombPoser - 1]->getSprite().getPosition().y) / 16)][floor((bomberman.getBombes()[nbreBombPoser - 1]->getSprite().getPosition().x) / 16)] = 'o';
+                       //p.x = BH[0]->getSprite().getPosition().x;
+                       //p.y = BH[0]->getSprite().getPosition().y;
+                       //if (BH.size() < 2) {
+                       //    BH.push_back(new Bomb(sf::IntRect(17, 258, CELL_SIZE, CELL_SIZE), { short(floor(((rect.getPosition().x - 1) + 6) / 16) * 16), short(floor(((rect.getPosition().y - 2) + 4) / 16) * 16) }));
+                       //    p.x = short(floor(((rect.getPosition().x - 1)+6) / 16) * 16);
+                       //    p.y = short(floor(((rect.getPosition().y - 2)+4) / 16) * 16);
+                       //    IsBomb = true;
+                       //}
+
+        //for (int i = 0; i < nbreBombPoser; i++) {
+                        //    if (Check) {
+                        //        bomberman.getBombes()[i]->getExplosion()->updateBox();
+                        //        bomberman.getBombes()[i]->getExplosion()->CheckBoxToDestroy(map_sketch, bomberman.getBombes()[i]->getPosition());
+                        //        if (i == nbreBombPoser - 1) {
+                        //            Check = false;
+                        //            ok = false;
+                        //        }
+
+                        //    }
+                        //    //bomberman.getBombes()[i]->animation(window);
+                        //    if (bomberman.getBombes()[i]->animation()) {
+                        //        cout << "ca marche" << endl;
+                        //        map_sketch[floor((bomberman.getBombes()[i]->getSprite().getPosition().y) / 16)][floor((bomberman.getBombes()[i]->getSprite().getPosition().x) / 16)] = '.';
+                        //        if (IsDestroyBox) {
+                        //            IsExplode = true;
+                        //            ok = true;
+                        //            bomberman.getBombes()[i]->getExplosion()->RestartClock();
+                        //            if (i == nbreBombPoser - 1) {
+                        //                IsDestroyBox = false;
+                        //            }
+                        //            for (int k = 0; k < bomberman.getBombes()[i]->getExplosion()->getBoxes().size(); k++) {
+                        //                bomberman.getBombes()[i]->getExplosion()->getBoxes()[k]->getClock().restart();
+                        //            }
+                        //        }
+                        //        //IsDestroyBox = true;
+                        //        //Boxes = bomberman.getBombes()[i]->getExplosion()->CheckBoxToDestroy(map_sketch, bomberman.getBombes()[i]->getPosition());
+                        //    }
+                        //    if (IsExplode == false) {
+                        //        bomberman.getBombes()[i]->draw(window);
+
+                        //    }
+                        //    if (IsExplode) {
+                        //        if (bomberman.getBombes()[i]->getExplosion()->IsPlayerHasTouch(bomberman.getSprite())) {
+                        //            isDead = true;
+                        //        }
+                        //        if (bomberman.getBombes()[i]->explode(map_sketch, window)) {
+                        //            IsExplode = false;
+                        //            nbreBombPoser = 0;
+                        //            //bomberman.getBombes()[i]->getExplosion()->setCompteur(0);
+                        //        }
+                        //    }
+                        //    if (ok) {
+                        //        for (int j = 0; j < bomberman.getBombes()[i]->getExplosion()->getBoxes().size(); j++) {
+                        //            bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->draw(window);
+                        //            if (bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->animationDestructionBox()) {
+                        //                ChanceToPlace = rand() % 2;
+                        //                if (ChanceToPlace == 1) {
+                        //                    Item* item = new Item();
+                        //                    item->PlaceItem(bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->getMp());
+                        //                    items.push_back(item);
+                        //                }
+                        //                map_sketch[floor(bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->getMp().y / 16)][floor(bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->getMp().x / 16)] = '.';
+                        //                //bomberman.getBombes()[i]->getExplosion()->getBoxes()[j]->setCompteur(0);
+                        //                /*delete Boxes[i];
+                        //                Boxes.erase(Boxes.begin());*/
+                        //            }
+                        //        }
+                        //    }
+
+
+         //Check = true;
+                            //IsDestroyBox = true;
+                            //cout << nbreBombPoser << endl;
+                            //cout << bomberman.getBombes().size() << endl;
+
+        //vector<Box*> Boxes;
+        //int ChanceToPlace;
+        //vector<Item*> items;
+        //Position p;
+        //int x;
+        //int y;
+
+
+        //bool Check = false;
+        //bool ok = false;
+
+        //bool IsBomb = false;
+        //bool IsExplode = false;
+        //bool IsDestroyBox = false;

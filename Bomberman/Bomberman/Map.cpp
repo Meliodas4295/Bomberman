@@ -4,9 +4,10 @@
 
 Map::Map()
 {
+	m_texture.loadFromFile("14bomberman.png");
 }
 
-std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, BombermanPlayer& bombermanPlayer)
+std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch)
 {
 	//Is it okay if I put {} here? I feel like I'm doing something illegal.
 	//But if I don't put it there, Visual Studio keeps saying "lOcAl vArIaBlE Is nOt iNiTiAlIzEd".
@@ -36,7 +37,7 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std
 			}
 			case '=':
 			{
-				output_map[b][a] = Cell::Box;
+				output_map[b][a] = Cell::BoxDestructible;
 
 				break;
 			}
@@ -47,12 +48,12 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std
 				break;
 			}
 			
-			case 'B':
+			/*case 'B':
 			{
 				bombermanPlayer.setPosition(CELL_SIZE * b, CELL_SIZE * a);
 
 				break;
-			}
+			}*/
 			/*case 'o':
 			{
 				output_map[b][a] = Cell::Bomb;
@@ -65,15 +66,15 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std
 	return output_map;
 }
 
-void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, BombermanPlayer& bombermanPlayer, sf::RenderWindow& i_window)
+void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, sf::RenderWindow& i_window)
 {
 	sf::Sprite sprite;
 	std::vector<sf::VertexArray> quads;
 
-	sf::Texture texture;
-	texture.loadFromFile("14bomberman.png");
+	/*sf::Texture texture;
+	texture.loadFromFile("14bomberman.png");*/
 
-	sprite.setTexture(texture);
+	sprite.setTexture(m_texture);
 
 	for (unsigned char a = 0; a < MAP_WIDTH; a++)
 	{
@@ -82,12 +83,12 @@ void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, Bombe
 			sprite.setPosition(static_cast<float>(CELL_SIZE * a), static_cast<float>(CELL_SIZE * b));
 
 			//We just crop out what we need from the texture.
-			switch (convertSketch(i_map_sketch,bombermanPlayer)[a][b])
+			switch (convertSketch(i_map_sketch)[a][b])
 			{
 			case Cell::Way:
 			{
 				sprite.setTextureRect(sf::IntRect(71 + 3 * (CELL_SIZE + 1), 175, CELL_SIZE, CELL_SIZE));
-
+				//sprite.setScale(2, 2);
 				i_window.draw(sprite);
 
 				break;
@@ -95,13 +96,15 @@ void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, Bombe
 			case Cell::Rock:
 			{
 				sprite.setTextureRect(sf::IntRect(71, 175, CELL_SIZE, CELL_SIZE));
+				//sprite.setScale(2, 2);
 				i_window.draw(sprite);
 
 				break;
 			}
-			case Cell::Box:
+			case Cell::BoxDestructible:
 			{
 				sprite.setTextureRect(sf::IntRect(71 + (CELL_SIZE+1), 175, CELL_SIZE, CELL_SIZE));
+				//sprite.setScale(2, 2);
 
 				i_window.draw(sprite);
 
@@ -110,7 +113,7 @@ void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, Bombe
 			case Cell::Way3D:
 			{
 				sprite.setTextureRect(sf::IntRect(71 + 2 * (CELL_SIZE + 1), 175, CELL_SIZE, CELL_SIZE));
-
+				//sprite.setScale(2, 2);
 				i_window.draw(sprite);
 
 				break;
@@ -119,3 +122,25 @@ void Map::drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, Bombe
 		}
 	}
 }
+
+vector<string> Map::explode(string const& s, char delim)
+{
+	vector<string> result;
+	istringstream iss(s);
+
+	for (string token; getline(iss, token, delim);) 
+	{
+		//cout << token << endl;
+		result.push_back(move(token));
+	}
+	return result;
+}
+
+//void Map::draw(sf::RenderWindow& window)
+//{
+//	for (int i = 0; i < m_map.size(); i++) {
+//		window.draw(m_map[i]);
+//	}
+//}
+
+

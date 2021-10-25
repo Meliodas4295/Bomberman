@@ -1,91 +1,94 @@
 #pragma once
+#pragma once
 #include "Global.h"
+//#include "Bomb.h"
+#include "Box.h"
+
 #include <SFML/Graphics.hpp>
-#include "Bomb.h";
+#include <iostream>
+
+
 class Explosion
 {
-public:
-	Explosion();
-
 private:
-	sf::Texture m_texture;
-	sf::Sprite m_sprite;
-    sf::Texture m_textBox;
-    sf::Sprite m_destroyBox;
-    sf::IntRect box;
-	vector<sf::Sprite> m_midleExplosion;
-	vector<sf::Sprite> m_firstUpExplosion;
-	vector<sf::Sprite> m_secondUpExplosion;
-	vector<sf::Sprite> m_firstDownExplosion;
-	vector<sf::Sprite> m_secondDownExplosion;
-	vector<sf::Sprite> m_firstRightExplosion;
-	vector<sf::Sprite> m_secondRightExplosion;
-	vector<sf::Sprite> m_firstLeftExplosion;
-	vector<sf::Sprite> m_secondLeftExplosion;
+    sf::Texture m_texture;
+    sf::Sprite m_midleExplosion;
+    sf::IntRect m_rectMidle;
+    std::map<int, sf::Sprite> ExplosionFirstLayer;
+    vector<sf::Sprite> ExplosionSecondLayer;
+    std::map<int, sf::IntRect> RectFirstLayer;
+    vector<sf::IntRect> RectSecondLayer;
+    int dir[4];
     int point1Collision[2];
     int point2Collision[2];
     int point3Collision[2];
     int point4Collision[2];
-    bool RestartClock;
-    bool firstBlock;
+    sf::Clock clock;
+    vector<Box*> Boxes;
+    int m_compteur;
 public:
 
-    bool getMRestartClock() const;
-    void setMRestartClock(bool mRestartClock);
+    Explosion();
+    ~Explosion();
+
+    sf::Sprite getMmidleExplosion() const;
+    void setMmidleExplosion(sf::Sprite mmidleExplosion);
+
+    sf::IntRect getMrectMidle() const;
+    void setMrectMidle(sf::IntRect mrectMidle);
+
+    std::map<int, sf::Sprite> getExplosionFirstLayer() const;
+    void setExplosionFirstLayer(std::map<int, sf::Sprite> ExplosionFirstLayer);
+
+    vector<sf::Sprite> getExplosionSecondLayer() const;
+    void setExplosionSecondLayer(vector<sf::Sprite> ExplosionSecondLayer);
+
+    std::map<int, sf::IntRect> getRectFirstLayer() const;
+    void setRectFirstLayer(std::map<int, sf::IntRect> RectFirstLayer);
+
+    vector<sf::IntRect> getRectSecondLayer() const;
+    void setRectSecondLayer(vector<sf::IntRect> RectSecondLayer);
+
+
+    int getMcompteur() const;
+    void setMcompteur(int mcompteur);
+
+    void RestartClock();
+
+    sf::Clock& getClock();
 
     sf::Texture getMtexture() const;
+
+    vector<Box*> getBoxes() const;
+
+    int getCompteur();
+    void setCompteur(int compteur);
+
     void setMtexture(sf::Texture mtexture);
 
-    sf::Sprite getMsprite() const;
-    void setMsprite(sf::Sprite msprite);
-
-    sf::Sprite getMdestroyBox() const;
-    void setMdestroyBox(sf::Sprite mdestroyBox);
-
-
-    vector<sf::Sprite> getMmidleExplosion() const;
-    void setMmidleExplosion(vector<sf::Sprite> mmidleExplosion);
-
-    vector<sf::Sprite> getMfirstUpExplosion() const;
-    void setMfirstUpExplosion(vector<sf::Sprite> mfirstUpExplosion);
-
-    vector<sf::Sprite> getMsecondUpExplosion() const;
-    void setMsecondUpExplosion(vector<sf::Sprite> msecondUpExplosion);
-
-    vector<sf::Sprite> getMfirstDownExplosion() const;
-    void setMfirstDownExplosion(vector<sf::Sprite> mfirstDownExplosion);
-
-    vector<sf::Sprite> getMsecondDownExplosion() const;
-    void setMsecondDownExplosion(vector<sf::Sprite> msecondDownExplosion);
-
-    vector<sf::Sprite> getMfirstRightExplosion() const;
-    void setMfirstRightExplosion(vector<sf::Sprite> mfirstRightExplosion);
-
-    vector<sf::Sprite> getMsecondRightExplosion() const;
-    void setMsecondRightExplosion(vector<sf::Sprite> msecondRightExplosion);
-
-    vector<sf::Sprite> getMfirstLeftExplosion() const;
-    void setMfirstLeftExplosion(vector<sf::Sprite> mfirstLeftExplosion);
-
-    vector<sf::Sprite> getMsecondLeftExplosion() const;
-    void setMsecondLeftExplosion(vector<sf::Sprite> msecondLeftExplosion);
-
-    void animation(sf::Clock& clock, sf::Sprite& sprite, vector<sf::Sprite> sprites);
+    bool animation(sf::Sprite& sprite, sf::IntRect& rect);
 
     void createCoordonates(Position p);
 
     bool collisionRock(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, Direction dir, int n);
 
-    void frameworkExplosion(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::RenderWindow& window, sf::Clock& clock);
+    bool frameworkExplosion(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::RenderWindow& window);
 
-    bool animationDestructionBox(sf::Clock& clock);
+    /* bool animationDestructionBox(sf::Clock& clock);
 
-    void destroyBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::Clock& clock, sf::RenderWindow& window);
+     void destroyBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::Clock& clock, sf::RenderWindow& window);*/
 
     bool collisionBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, Direction dir, int n);
 
     bool IsWay3DBox(std::array<std::string, MAP_HEIGHT>& map_sketch, int x, int y);
 
+    bool IsPlayerHasTouch(sf::Sprite& player);
+
+    void CheckBoxToDestroy(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p);
+
+    void removeFlame();
+
+    void updateBox();
+
 
 };
-

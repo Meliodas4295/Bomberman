@@ -1,59 +1,51 @@
 #include "Explosion.h"
+#include "Box.h"
+Explosion::Explosion(){
+	m_texture.loadFromFile("exp.png");
 
-Explosion::Explosion(): RestartClock(false){
-	m_texture.loadFromFile("explosion_16x16.png");
-	m_sprite.setTexture(m_texture);
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((2 + 5 * i)*17, 49, 16, 16));
-			m_midleExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-        m_sprite.setTextureRect(sf::IntRect((1 + 5 * i) * 17, 3 * 16.5 , 16, 16));
-		m_firstLeftExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((5 * i) * 17, 3 * 16.5, 16, 16));
-		m_secondLeftExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((3 + 5 * i) * 17, 3 * 16.5, 16, 16));
-		m_firstRightExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((4 + 5 * i) * 17 , 3 * 16.5, 16, 16));
-		m_secondRightExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 32, 16, 16));
-		m_firstUpExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17 , 17, 16, 14));
-		m_secondUpExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 4 * 16.5, 16, 16));
-		m_firstDownExplosion.push_back(m_sprite);
-	}
-	for (int i = 0; i < 3; i++) {
-		m_sprite.setTextureRect(sf::IntRect((2 + 5 * i) * 17, 5 * 16.5, 16, 16));
-		m_secondDownExplosion.push_back(m_sprite);
-	}
-    m_textBox.loadFromFile("stage.png");
-    m_destroyBox.setTexture(m_textBox);
-    box = sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16);
-    m_destroyBox.setTextureRect(box);
+    dir[0] = Up;
+    dir[1] = Down;
+    dir[2] = Right;
+    dir[3] = Left;
+
+    m_rectMidle = sf::IntRect(0,0,32,32);
+    m_midleExplosion.setTexture(m_texture);
+    m_midleExplosion.setTextureRect(m_rectMidle);
+    m_midleExplosion.setScale(0.5, 0.5);
+
+    for (int i = 0; i < 4; i++) {
+        sf::Sprite flame(m_texture);
+        sf::IntRect rect = sf::IntRect(32*(3+i), 0, 32, 32);
+        flame.setTextureRect(rect);
+        flame.setScale(0.5, 0.5);
+        ExplosionFirstLayer.insert(pair<int,sf::Sprite>(dir[i], flame));
+        RectFirstLayer.insert(pair<int, sf::IntRect>(dir[i], rect));
+
+    }
+    for (int i = 0; i < 2; i++) {
+        sf::Sprite flame(m_texture);
+        sf::IntRect rect = sf::IntRect(32 * (1+i), 0, 32, 32);
+        flame.setTextureRect(rect);
+        flame.setScale(0.5, 0.5);
+        ExplosionSecondLayer.push_back(flame);
+        RectSecondLayer.push_back(rect);
+
+    }
 		
 }
 
-bool Explosion::getMRestartClock() const
+Explosion::~Explosion()
 {
-    return RestartClock;
 }
 
-void Explosion::setMRestartClock(bool mRestartClock)
+void Explosion::RestartClock()
 {
-    RestartClock = mRestartClock;
+    clock.restart();
+}
+
+sf::Clock& Explosion::getClock()
+{
+    return clock;
 }
 
 sf::Texture Explosion::getMtexture() const
@@ -61,132 +53,40 @@ sf::Texture Explosion::getMtexture() const
     return m_texture;
 }
 
+vector<Box*> Explosion::getBoxes() const
+{
+    return Boxes;
+}
+
+int Explosion::getCompteur()
+{
+    return m_compteur;
+}
+
+void Explosion::setCompteur(int compteur)
+{
+    m_compteur = compteur;
+}
+
 void Explosion::setMtexture(sf::Texture mtexture)
 {
     m_texture = mtexture;
 }
 
-sf::Sprite Explosion::getMsprite() const
-{
-    return m_sprite;
-}
 
-void Explosion::setMsprite(sf::Sprite msprite)
-{
-    m_sprite = msprite;
-}
 
-sf::Sprite Explosion::getMdestroyBox() const
-{
-    return m_destroyBox;
-}
 
-void Explosion::setMdestroyBox(sf::Sprite mdestroyBox)
-{
-    m_destroyBox = mdestroyBox;
-}
 
-vector<sf::Sprite> Explosion::getMmidleExplosion() const
+bool Explosion::animation(sf::Sprite& sprite, sf::IntRect& rect)
 {
-    return m_midleExplosion;
-}
-
-void Explosion::setMmidleExplosion(vector<sf::Sprite> mmidleExplosion)
-{
-    m_midleExplosion = mmidleExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMfirstUpExplosion() const
-{
-    return m_firstUpExplosion;
-}
-
-void Explosion::setMfirstUpExplosion(vector<sf::Sprite> mfirstUpExplosion)
-{
-    m_firstUpExplosion = mfirstUpExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMsecondUpExplosion() const
-{
-    return m_secondUpExplosion;
-}
-
-void Explosion::setMsecondUpExplosion(vector<sf::Sprite> msecondUpExplosion)
-{
-    m_secondUpExplosion = msecondUpExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMfirstDownExplosion() const
-{
-    return m_firstDownExplosion;
-}
-
-void Explosion::setMfirstDownExplosion(vector<sf::Sprite> mfirstDownExplosion)
-{
-    m_firstDownExplosion = mfirstDownExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMsecondDownExplosion() const
-{
-    return m_secondDownExplosion;
-}
-
-void Explosion::setMsecondDownExplosion(vector<sf::Sprite> msecondDownExplosion)
-{
-    m_secondDownExplosion = msecondDownExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMfirstRightExplosion() const
-{
-    return m_firstRightExplosion;
-}
-
-void Explosion::setMfirstRightExplosion(vector<sf::Sprite> mfirstRightExplosion)
-{
-    m_firstRightExplosion = mfirstRightExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMsecondRightExplosion() const
-{
-    return m_secondRightExplosion;
-}
-
-void Explosion::setMsecondRightExplosion(vector<sf::Sprite> msecondRightExplosion)
-{
-    m_secondRightExplosion = msecondRightExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMfirstLeftExplosion() const
-{
-    return m_firstLeftExplosion;
-}
-
-void Explosion::setMfirstLeftExplosion(vector<sf::Sprite> mfirstLeftExplosion)
-{
-    m_firstLeftExplosion = mfirstLeftExplosion;
-}
-
-vector<sf::Sprite> Explosion::getMsecondLeftExplosion() const
-{
-    return m_secondLeftExplosion;
-}
-
-void Explosion::setMsecondLeftExplosion(vector<sf::Sprite> msecondLeftExplosion)
-{
-    m_secondLeftExplosion = msecondLeftExplosion;
-}
-
-void Explosion::animation(sf::Clock& clock, sf::Sprite& sprite, vector<sf::Sprite> sprites)
-{
-    if (clock.getElapsedTime().asSeconds() > 0.2f) {
-        sprite.setTextureRect(sprites[1].getTextureRect());
+    int currenttimeint = clock.getElapsedTime().asSeconds();
+    int animation1framenumber = static_cast<unsigned int>(clock.getElapsedTime().asSeconds() * 3.f) % 3;
+    sprite.setTextureRect(sf::IntRect(rect.left, animation1framenumber*32, rect.width, rect.height));
+    if (currenttimeint >= 1) {
+        return true;
     }
-    if (clock.getElapsedTime().asSeconds() > 0.4f) {
-        sprite.setTextureRect(sprites[0].getTextureRect());
-    }
-    if (clock.getElapsedTime().asSeconds() > 0.6f) {
-        sprite.setTextureRect(sprites[2].getTextureRect());
-        clock.restart();
+    else {
+        return false;
     }
 }
 
@@ -223,161 +123,36 @@ bool Explosion::collisionRock(std::array<std::string, MAP_HEIGHT>& map_sketch, P
     }
 }
 
-void Explosion::frameworkExplosion(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::RenderWindow& window,sf::Clock& clock)
+bool Explosion::frameworkExplosion(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::RenderWindow& window)
 {
-    m_midleExplosion[2].setPosition(p.x, p.y);
-    window.draw(m_midleExplosion[2]);
-    m_midleExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 49, 16, 16));
-    animation(clock, m_midleExplosion[2], m_midleExplosion);
-    if (collisionRock(map_sketch, p, Down, 0) && collisionBox(map_sketch, p, Down, 0)) {
-        m_firstDownExplosion[2].setPosition(p.x, p.y + 16);
-        window.draw(m_firstDownExplosion[2]);
-        m_firstDownExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 4 * 16.5, 16, 16));
-        animation(clock, m_firstDownExplosion[2], m_firstDownExplosion);
-        if (collisionRock(map_sketch, p, Down, 1) && collisionBox(map_sketch, p, Down, 1)) {
-            m_secondDownExplosion[2].setPosition(p.x, p.y + 30);
-            window.draw(m_secondDownExplosion[2]);
-            m_secondDownExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 5 * 16.5, 16, 16));
-            animation(clock, m_secondDownExplosion[2], m_secondDownExplosion);
+    m_midleExplosion.setPosition(p.x, p.y);
+    window.draw(m_midleExplosion);
+    animation(m_midleExplosion, m_rectMidle);
+
+    for (int i = 0; i < ExplosionFirstLayer.size(); i++) {
+        if (collisionRock(map_sketch, p, Direction(i), 0) && collisionBox(map_sketch, p, Direction(i), 0)) {
+            if(Direction(i)==Down)
+                ExplosionFirstLayer.at(Direction(i)).setPosition(p.x, p.y + 16);
+            if (Direction(i) == Up)
+                ExplosionFirstLayer.at(Direction(i)).setPosition(p.x, p.y - 16);
+            if (Direction(i) == Right)
+                ExplosionFirstLayer.at(Direction(i)).setPosition(p.x + 16, p.y);
+            if (Direction(i) == Left)
+                ExplosionFirstLayer.at(Direction(i)).setPosition(p.x - 16, p.y);
+            window.draw(ExplosionFirstLayer[i]);
+            animation(ExplosionFirstLayer[i], RectFirstLayer[i]);
         }
     }
-    if (collisionRock(map_sketch, p, Left, 0) && collisionBox(map_sketch, p, Left, 0)) {
-        m_firstLeftExplosion[2].setPosition(p.x - 16, p.y);
-        window.draw(m_firstLeftExplosion[2]);
-        m_firstLeftExplosion[2].setTextureRect(sf::IntRect((1 + 5 * 2) * 17, 3 * 16.5, 16, 16));
-        animation(clock, m_firstLeftExplosion[2], m_firstLeftExplosion);
-        if (collisionRock(map_sketch, p, Left, 1) && collisionBox(map_sketch, p, Left, 1)) {
-            m_secondLeftExplosion[2].setPosition(p.x - 32, p.y);
-            window.draw(m_secondLeftExplosion[2]);
-            m_secondLeftExplosion[2].setTextureRect(sf::IntRect((5 * 2) * 17, 3 * 16.5, 16, 16));
-            animation(clock, m_secondLeftExplosion[2], m_secondLeftExplosion);
-        }
-    }
-    if (collisionRock(map_sketch, p, Right, 0) && collisionBox(map_sketch, p, Right, 0)) {
-        m_firstRightExplosion[2].setPosition(p.x + 16, p.y);
-        window.draw(m_firstRightExplosion[2]);
-        m_firstRightExplosion[2].setTextureRect(sf::IntRect((3 + 5 * 2) * 17, 3 * 16.5, 16, 16));
-        animation(clock, m_firstRightExplosion[2], m_firstRightExplosion);
-        if (collisionRock(map_sketch, p, Right, 1) && collisionBox(map_sketch, p, Right, 1)) {
-            m_secondRightExplosion[2].setPosition(p.x + 32, p.y);
-            window.draw(m_secondRightExplosion[2]);
-            m_secondRightExplosion[2].setTextureRect(sf::IntRect((4 + 5 * 2) * 17, 3 * 16.5, 16, 16));
-            animation(clock, m_secondRightExplosion[2], m_secondRightExplosion);
-        }
-    }
-    if (collisionRock(map_sketch, p, Up, 0) && collisionBox(map_sketch, p, Up, 0)) {
-        m_firstUpExplosion[2].setPosition(p.x, p.y - 16);
-        window.draw(m_firstUpExplosion[2]);
-        m_firstUpExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 32, 16, 16));
-        animation(clock, m_firstUpExplosion[2], m_firstUpExplosion);
-        if (collisionRock(map_sketch, p, Up, 1) && collisionBox(map_sketch, p, Up, 1)) {
-            m_secondUpExplosion[2].setPosition(p.x, p.y - 30);
-            window.draw(m_secondUpExplosion[2]);
-            m_secondUpExplosion[2].setTextureRect(sf::IntRect((2 + 5 * 2) * 17, 17, 16, 14));
-            animation(clock, m_secondUpExplosion[2], m_secondUpExplosion);
-        }
-    }
+    
+    return animation(m_midleExplosion, m_rectMidle);
 }
 
-bool Explosion::animationDestructionBox(sf::Clock& clock)
-{
-    bool IsBoxDestroy = false;
-    if (clock.getElapsedTime().asSeconds() > 0.2f) {
-
-        if (box.left == 22 * 16.4) {
-            box.left = 17 * 16.4;
-            IsBoxDestroy = true;
-        }
-        else
-            box.left += 16.4;
-
-        m_destroyBox.setTextureRect(box);
-        if (IsBoxDestroy)
-            return IsBoxDestroy;
-        clock.restart();
-    }
-    else
-        return false;
-}
-
-void Explosion::destroyBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, sf::Clock& clock, sf::RenderWindow& window)
-{
-    /*if (map_sketch[floor((p.y + 32) / 16)][floor(p.x / 16)] == '=') {
-        m_destroyBox.setPosition(p.x, p.y + 32);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor((p.y + 32) / 16)][floor(p.x / 16)] = '.';
-        }
-    }
-
-    if (map_sketch[floor(p.y / 16)][floor((p.x - 32) / 16)] == '=' ) {
-        m_destroyBox.setPosition(p.x - 32, p.y);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor(p.y / 16)][floor((p.x - 32) / 16)] = '.';
-        }
-    }
-
-    if (map_sketch[floor(p.y / 16)][floor((p.x + 32) / 16)] == '=') {
-        m_destroyBox.setPosition(p.x + 32, p.y);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor(p.y / 16)][floor((p.x + 32) / 16)] = '.';
-        }
-    }
-
-    if (map_sketch[floor((p.y - 32) / 16)][floor(p.x / 16)] == '=') {
-        m_destroyBox.setPosition(p.x, p.y - 32);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor((p.y - 32) / 16)][floor(p.x / 16)] = '.';
-        }
-    }*/
-
-
-    if (map_sketch[floor((p.y + 16) / 16)][floor(p.x/16)] == '=') {
-        m_destroyBox.setPosition(p.x, p.y+16);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor((p.y + 16) / 16)][floor(p.x / 16)] = '.';
-        }
-    }
-    if (map_sketch[floor(p.y / 16)][floor((p.x-16) / 16)] == '=') {
-        m_destroyBox.setPosition(p.x - 16, p.y);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor(p.y / 16)][floor((p.x - 16) / 16)] = '.';
-        }
-    }
-    if (map_sketch[floor(p.y / 16)][floor((p.x + 16) / 16)] == '=') {
-        m_destroyBox.setPosition(p.x + 16, p.y );
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor(p.y / 16)][floor((p.x + 16) / 16)] = '.';
-        }
-    }
-    if (map_sketch[floor((p.y - 16) / 16)][floor(p.x / 16)] == '=') {
-        m_destroyBox.setPosition(p.x, p.y - 16);
-        window.draw(m_destroyBox);
-        if (this->animationDestructionBox(clock)) {
-            m_destroyBox.setTextureRect(sf::IntRect(17 * 16.4, 33 * 17.1, 16, 16));
-            map_sketch[floor((p.y - 16) / 16)][floor(p.x / 16)] = '.';
-        }
-    }
-}
+    
 
 bool Explosion::collisionBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p, Direction dir, int n)
 {
     this->createCoordonates(p);
-
+ 
     if (dir == Down) {
         return !(map_sketch[point3Collision[1]+n][point1Collision[0]] == '=') && !(map_sketch[point3Collision[1]+n][point2Collision[0]] == '=');
     }
@@ -391,7 +166,7 @@ bool Explosion::collisionBox(std::array<std::string, MAP_HEIGHT>& map_sketch, Po
         return !(map_sketch[point4Collision[1]-n][point1Collision[0]] == '=') && !(map_sketch[point4Collision[1]-n][point2Collision[0]] == '=');
     }
     else {
-        return true;
+        return false;
     }
 }
 
@@ -406,3 +181,129 @@ bool Explosion::IsWay3DBox(std::array<std::string, MAP_HEIGHT>& map_sketch, int 
     }
     return false;
 }
+
+bool Explosion::IsPlayerHasTouch(sf::Sprite& player)
+{
+    for (int i = 0; i < ExplosionFirstLayer.size(); i++) {
+        //cout << ExplosionFirstLayer[i].getPosition().x << "  ;  " << player.getPosition().x << endl;
+        if (ExplosionFirstLayer[i].getGlobalBounds().intersects(player.getGlobalBounds())) {
+            //flames.clear();
+            return true;
+        }
+    }
+    //cout << m_midleExplosion.getPosition().x << "  ;  " << player.getPosition().x << endl;
+    if (m_midleExplosion.getGlobalBounds().intersects(player.getGlobalBounds())) {
+        return true;
+    }
+    return false;
+}
+
+void Explosion::CheckBoxToDestroy(std::array<std::string, MAP_HEIGHT>& map_sketch, Position p)
+{
+
+    //vector<Box*> m_boxs;
+    for (int i = 0; i < 4; i++) {
+        //for (int j = 0; j < 2; j++) {
+            if (!collisionBox(map_sketch, p, Direction(i), 0)) {
+                switch (Direction(i)) {
+                case Down:
+                    Boxes.push_back(new Box(Direction(i), 0, { short(p.x) , short(p.y + 16) }));
+                    break;
+                case Up:
+                    Boxes.push_back(new Box(Direction(i), 0, { short(p.x) , short(p.y - 16) }));
+                    break;
+                case Left:
+                    Boxes.push_back(new Box(Direction(i), 0, { short(p.x - 16) , short(p.y) }));
+                    break;
+                case Right:
+                    Boxes.push_back(new Box(Direction(i), 0, { short(p.x + 16) , short(p.y) }));
+                    break;
+                }
+           // }
+        }
+    }
+}
+
+void Explosion::removeFlame()
+{
+    for (int i = 0; i < ExplosionFirstLayer.size(); i++) {
+        ExplosionFirstLayer[i].setPosition(-12, -12);
+    }
+    m_midleExplosion.setPosition(-12, -12);
+    
+}
+
+void Explosion::updateBox()
+{
+    Boxes.clear();
+}
+
+sf::Sprite Explosion::getMmidleExplosion() const
+{
+    return m_midleExplosion;
+}
+
+void Explosion::setMmidleExplosion(sf::Sprite mmidleExplosion)
+{
+    m_midleExplosion = mmidleExplosion;
+}
+
+sf::IntRect Explosion::getMrectMidle() const
+{
+    return m_rectMidle;
+}
+
+void Explosion::setMrectMidle(sf::IntRect mrectMidle)
+{
+    m_rectMidle = mrectMidle;
+}
+
+std::map<int,sf::Sprite> Explosion::getExplosionFirstLayer() const
+{
+    return ExplosionFirstLayer;
+}
+
+void Explosion::setExplosionFirstLayer(std::map<int,sf::Sprite> ExplosionFirstLayer)
+{
+    this->ExplosionFirstLayer = ExplosionFirstLayer;
+}
+
+vector<sf::Sprite> Explosion::getExplosionSecondLayer() const
+{
+    return ExplosionSecondLayer;
+}
+
+void Explosion::setExplosionSecondLayer(vector<sf::Sprite> ExplosionSecondLayer)
+{
+    this->ExplosionSecondLayer = ExplosionSecondLayer;
+}
+
+std::map<int,sf::IntRect> Explosion::getRectFirstLayer() const
+{
+    return RectFirstLayer;
+}
+
+void Explosion::setRectFirstLayer(std::map<int,sf::IntRect> RectFirstLayer)
+{
+    this->RectFirstLayer = RectFirstLayer;
+}
+
+vector<sf::IntRect> Explosion::getRectSecondLayer() const
+{
+    return RectSecondLayer;
+}
+
+void Explosion::setRectSecondLayer(vector<sf::IntRect> RectSecondLayer)
+{
+    this->RectSecondLayer = RectSecondLayer;
+}
+int Explosion::getMcompteur() const
+{
+    return m_compteur;
+}
+
+void Explosion::setMcompteur(int mcompteur)
+{
+    m_compteur = mcompteur;
+}
+
