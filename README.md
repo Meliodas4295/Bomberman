@@ -1,4 +1,4 @@
-# Bomberman
+# Bomberman C++/SFML
 
 Références Textures:
 
