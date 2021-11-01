@@ -1,6 +1,6 @@
 # Bomberman C++/SFML
 
-Références Textures:
+Images projet:
 
 ![alt text](Bomberman/Bomberman/14bomberman.PNG)
 ![alt text](Bomberman/Bomberman/bomberman-sprite-sheet.png)
@@ -9,6 +9,8 @@ Références Textures:
 ![alt text](Bomberman/Bomberman/items.png)
 ![alt text](Bomberman/Bomberman/stage.png)
 ![alt text](Bomberman/Bomberman/Super_Bomberman_front.png)
+
+Références images :
 
 https://lh3.googleusercontent.com/proxy/qL_AGixqagYmjfW1hLtV-ISUca56KZ8FVoEEitWeGFfVqrsGntCQYHJrGb7ofz4BkXFx6ZkyaFprpBE8XpvsFpwhDO8PusKnmu1TxfcpZg  
 https://lh3.googleusercontent.com/proxy/qL_AGixqagYmjfW1hLtV-https://manalun.github.io/images/bomberman-sprite-sheet.png  
