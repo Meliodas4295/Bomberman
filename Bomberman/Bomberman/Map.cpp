@@ -2,6 +2,8 @@
 #include "BombermanPlayer.h"
 #include "Global.h"
 
+
+// Code des maps inspire de https://github.com/Kofybrek/Pacman/
 Map::Map()
 {
 	m_texture.loadFromFile("14bomberman.png");
