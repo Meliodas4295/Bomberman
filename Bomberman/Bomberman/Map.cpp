@@ -9,8 +9,6 @@ Map::Map()
 
 std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch)
 {
-	//Is it okay if I put {} here? I feel like I'm doing something illegal.
-	//But if I don't put it there, Visual Studio keeps saying "lOcAl vArIaBlE Is nOt iNiTiAlIzEd".
 	std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> output_map{};
 
 	for (unsigned char a = 0; a < MAP_HEIGHT; a++)
@@ -47,19 +45,7 @@ std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> Map::convertSketch(const std
 
 				break;
 			}
-			
-			/*case 'B':
-			{
-				bombermanPlayer.setPosition(CELL_SIZE * b, CELL_SIZE * a);
 
-				break;
-			}*/
-			/*case 'o':
-			{
-				output_map[b][a] = Cell::Bomb;
-
-				break;
-			}*/
 			}
 		}
 	}
@@ -130,17 +116,10 @@ vector<string> Map::explode(string const& s, char delim)
 
 	for (string token; getline(iss, token, delim);) 
 	{
-		//cout << token << endl;
 		result.push_back(move(token));
 	}
 	return result;
 }
 
-//void Map::draw(sf::RenderWindow& window)
-//{
-//	for (int i = 0; i < m_map.size(); i++) {
-//		window.draw(m_map[i]);
-//	}
-//}
 
 
