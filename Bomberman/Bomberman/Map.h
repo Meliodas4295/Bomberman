@@ -19,7 +19,6 @@ public:
 	Map();
 	std::array<std::array<Cell, MAP_HEIGHT>, MAP_WIDTH> convertSketch(const std::array<std::string, MAP_HEIGHT>& i_map_sketch);
 	void drawMap(const std::array<std::string, MAP_HEIGHT>& i_map_sketch, sf::RenderWindow& i_window);
-	/*void draw(sf::RenderWindow& window);*/
 	vector<string> explode(string const& s, char delim);
 
 
